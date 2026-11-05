@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camposol - Cap Uva</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-900 flex justify-center items-center min-h-screen p-0 sm:p-4">
+
+  <!-- Marco Móvil -->
+  <div id="app-shell" class="w-full max-w-md bg-white min-h-screen sm:min-h-[844px] sm:max-h-[920px] shadow-2xl sm:rounded-[2.5rem] sm:border-[8px] sm:border-slate-800 relative flex flex-col overflow-hidden">
+
+    <!-- Barra de Estado Android -->
+    <div id="cap-status57" class="w-full bg-white text-gray-700 text-xs px-5 pt-3 pb-1 flex justify-between items-center z-30 select-none border-b border-gray-100">
+      <span class="font-bold text-xs" id="live-clock">16:15</span>
+      <div class="hidden sm:block w-20 h-4 bg-slate-800 rounded-full mx-auto"></div>
+      <div class="flex items-center space-x-1.5 text-[11px] text-gray-500">
+        <i class="fa-solid fa-microphone text-emerald-500"></i>
+        <i class="fa-solid fa-signal"></i>
+        <i class="fa-solid fa-wifi"></i>
+        <i class="fa-solid fa-battery-full text-xs text-emerald-600"></i>
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 1. MENÚ PRINCIPAL (ESTILO EXACTO AL VIDEO)    -->
+    <!-- ============================================== -->
+    <section id="view-menu" class="app-screen flex-1 flex flex-col p-4 bg-gray-50 overflow-y-auto">
+      <div class="bg-emerald-600 rounded-2xl p-4 text-white shadow-md relative mb-6">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-user-check"></i>
+            </div>
+            <div>
+              <h2 class="text-xs font-bold uppercase tracking-wider">SANTISTEBAN YAUCE CESAR</h2>
+              <p class="text-[11px] text-emerald-100 font-medium">CAMPOSOL PERU</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="bg-emerald-700 text-[10px] px-2 py-0.5 rounded-full font-mono">QAS - 1.1.64</span>
+            <div class="mt-1"><button onclick="limpiarPruebas38()" class="limpiar-pruebas38" title="Limpiar datos de pruebas" aria-label="Limpiar todos los registros de CAP UVA">☑</button></div>
+          </div>
+        </div>
+        <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 w-11 h-11 bg-white rounded-full p-1 shadow flex items-center justify-center">
+          <div class="w-9 h-9 rounded-full bg-emerald-500 flex items-center justify-center text-white text-base">
+            <i class="fa-solid fa-leaf"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-2 mb-3">
+        <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Menú principal</span>
+      </div>
+
+      <div id="menu-modulos" class="flex-1 space-y-3">
+<button onclick="navTo('cosecha-home')" class="w-full bg-[#FF6F00] hover:bg-orange-700 text-white py-3.5 px-4 rounded-2xl shadow-md flex items-center transition transform active:scale-98">
+          <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center mr-3 text-lg">
+            <i class="fa-solid fa-boxes-stacked"></i>
+          </div>
+          <span class="font-bold text-xs tracking-wider uppercase">COSECHA</span>
+        </button>
+<button onclick="navTo('transporte-home')" class="w-full bg-[#6B118C] hover:bg-purple-900 text-white py-3.5 px-4 rounded-2xl shadow-md flex items-center transition transform active:scale-98">
+          <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center mr-3 text-lg">
+            <i class="fa-solid fa-truck-moving"></i>
+          </div>
+          <span class="font-bold text-xs tracking-wider uppercase">TRANSPORTE INTERNO</span>
+        </button>
+<button onclick="navTo('acopio-home')" class="w-full bg-[#8E8E93] hover:bg-gray-600 text-white py-3.5 px-4 rounded-2xl shadow-md flex items-center transition transform active:scale-98">
+          <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center mr-3 text-lg">
+            <i class="fa-solid fa-truck"></i>
+          </div>
+          <span class="font-bold text-xs tracking-wider uppercase">PREPACKING</span>
+        </button>
+<button class="nuevo-modulo petroleo" onclick="abrirUva('gasificado','home')"><i class="fa-solid fa-wind"></i> GASIFICADO UVA</button>
+<button class="nuevo-modulo hielo" onclick="abrirUva('enfriado','home')"><i class="fa-solid fa-snowflake"></i> ENFRIADO UVA</button>
+<button class="nuevo-modulo verde" onclick="abrirUva('despacho','home')"><i class="fa-solid fa-truck-ramp-box"></i> DESPACHO UVA</button>
+      </div>
+
+      <div class="mt-auto pt-4 pb-2">
+        <button onclick="avisoApp('Sesión cerrada con éxito')" class="w-full border-2 border-emerald-600 text-emerald-700 py-3 px-5 rounded-2xl flex items-center justify-center font-bold text-xs hover:bg-emerald-50 active:scale-98 transition">
+          <i class="fa-solid fa-arrow-right-from-bracket mr-2 text-sm"></i>
+          CERRAR SESIÓN
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- 2. MÓDULO COSECHA                              -->
+    <!-- ============================================== -->
+
+    <!-- C1. Home Cosecha -->
+    <section id="view-cosecha-home" class="app-screen hidden flex-1 flex flex-col bg-gray-100 overflow-y-auto">
+      <div class="bg-[#FF6F00] text-white pt-3 pb-8 px-5 rounded-b-[2.5rem] shadow relative">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center space-x-3">
+            <button onclick="navTo('menu')" class="text-xl p-1 hover:text-amber-200" title="Atrás">
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <button onclick="openSidebar('drawer-cosecha')" class="text-xl p-1 hover:text-amber-200" title="Opciones">
+              <i class="fa-solid fa-bars"></i>
+            </button>
+            <h1 class="text-2xl font-bold">Home</h1>
+          </div>
+          <div class="relative">
+            <button onclick="toggleMenu('cosecha-popover')" class="text-xl p-1">
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+            <div id="cosecha-popover" class="hidden absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-xl shadow-2xl py-2 z-50 text-xs border border-gray-100">
+              <button onclick="openModalCultivo()" class="w-full px-4 py-2.5 text-left flex items-center hover:bg-amber-50">
+                <i class="fa-solid fa-rotate mr-2 text-amber-500"></i> Cambiar de cultivo
+              </button>
+              <button onclick="confirmarAsociarCaseta()" class="w-full px-4 py-2.5 text-left flex items-center hover:bg-amber-50">
+                <i class="fa-solid fa-store mr-2 text-amber-500"></i> Asociar Caseta
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-xs space-y-0.5 text-amber-50">
+          <p>Cosecha | <span id="lbl-cosecha-cultivo" class="font-bold text-white">Uva</span></p>
+          <p>Grupo: <span class="font-medium text-white">G001</span></p>
+          <p>Caseta: <span id="lbl-cosecha-caseta" class="font-medium text-white">0010062190101</span></p>
+          <p class="truncate">Jabero: <span id="lbl-cosecha-jabero" class="font-semibold text-white">MARIA MERCEDES ADANAQUE CRISANTO</span></p>
+        </div>
+      </div>
+
+      <div class="p-4 grid grid-cols-2 gap-3 -mt-4 flex-1">
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 text-center">
+          <span id="kpi-bandejas" class="text-4xl font-extrabold text-gray-800">8</span>
+          <span class="block text-xs text-gray-400 mt-2 font-medium">Total Bandejas</span>
+        </div>
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 text-center">
+          <span id="kpi-kg" class="text-4xl font-extrabold text-gray-800">64.0</span>
+          <span class="block text-xs text-gray-400 mt-2 font-medium">Kg. Cosechados</span>
+        </div>
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 text-center">
+          <span id="kpi-enviados" class="text-4xl font-extrabold text-gray-800">8</span>
+          <span class="block text-xs text-gray-400 mt-2 font-medium">Total Enviados</span>
+        </div>
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 text-center">
+          <span id="kpi-prod" class="text-4xl font-extrabold text-gray-800">40.00</span>
+          <span class="block text-xs text-gray-400 mt-2 font-medium">Productividad Grupo</span>
+        </div>
+
+        <div class="col-span-1">
+          <div class="bg-rose-500 text-white rounded-t-xl py-1 text-center text-[11px] font-semibold">Min Productividad</div>
+          <div class="bg-white rounded-b-xl p-3 shadow-sm border border-gray-100 text-center">
+            <span class="text-2xl font-bold text-gray-800">32.00</span>
+          </div>
+        </div>
+
+        <div class="col-span-1">
+          <div class="bg-emerald-500 text-white rounded-t-xl py-1 text-center text-[11px] font-semibold">Max Productividad</div>
+          <div class="bg-white rounded-b-xl p-3 shadow-sm border border-gray-100 text-center">
+            <span class="text-2xl font-bold text-gray-800">48.00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 bg-white border-t border-gray-100">
+        <button onclick="avisoApp('Detalle de productividad:\\n- Promedio actual: 40.00 kg/hr')" class="w-full bg-black text-white font-bold py-3.5 rounded-xl text-xs tracking-wider uppercase shadow">
+          DETALLE PRODUCTIVIDAD
+        </button>
+      </div>
+    </section>
+
+    <!-- C2. Registro de Cosecha -->
+    <section id="view-cosecha-registro" class="app-screen hidden flex-1 flex flex-col bg-gray-50 overflow-y-auto">
+      <div class="bg-[#FF6F00] text-white pt-3 pb-6 px-5 rounded-b-[2rem] shadow">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <button onclick="navTo('cosecha-home')" class="text-xl p-1 hover:text-amber-200"><i class="fa-solid fa-arrow-left"></i></button>
+            <button onclick="openSidebar('drawer-cosecha')" class="text-xl p-1 hover:text-amber-200"><i class="fa-solid fa-bars"></i></button>
+            <div>
+              <h1 class="text-lg font-bold leading-none">Registro de Cosecha</h1>
+              <p class="text-xs text-amber-100 mt-0.5">Cosecha | Uva</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 flex-1 flex flex-col justify-between">
+        <div class="space-y-3 bg-white p-4 rounded-2xl shadow-sm border border-gray-200 text-xs">
+          <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wider text-center border-b pb-2">INICIO DE REGISTRO</h2>
+          <div>
+            <label class="block text-[11px] font-semibold text-gray-500 uppercase">Fundo</label>
+            <select class="w-full mt-1 border rounded-xl p-2.5 font-bold text-gray-800 bg-white">
+              <option value="AGROALEGRE">AGROALEGRE</option>
+              <option value="AGRICULTOR">AGRICULTOR</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-gray-500 uppercase">Parcela</label>
+            <select class="w-full mt-1 border rounded-xl p-2.5 font-bold text-gray-800 bg-white">
+              <option value="PARCELA 800">PARCELA 800</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-gray-500 uppercase">Lote</label>
+            <select class="w-full mt-1 border rounded-xl p-2.5 font-bold text-gray-800 bg-white">
+              <option value="L11000">L11000</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-gray-500 uppercase">Variedad</label>
+            <select class="w-full mt-1 border rounded-xl p-2.5 font-bold text-gray-800 bg-white">
+              <option value="SWEET GLOBE">SWEET GLOBE</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-gray-500 uppercase">Producto</label>
+            <select class="w-full mt-1 border rounded-xl p-2.5 font-bold text-gray-800 bg-white">
+              <option value="EXPORTABLE">EXPORTABLE</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-gray-500 uppercase">Formato</label>
+            <select class="w-full mt-1 border rounded-xl p-2.5 font-bold text-gray-800 bg-white">
+              <option value="JABA SWEET GLOBE - VERDE">JABA SWEET GLOBE - VERDE</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-gray-500 uppercase">Contenedor</label>
+            <button type="button" onclick="openModalSelectorContenedor()" class="w-full mt-1 border rounded-xl p-2.5 font-bold text-left flex justify-between items-center bg-gray-50">
+              <span id="lbl-contenedor-seleccionado">J1-JABA UVA 8 G</span>
+              <i class="fa-solid fa-chevron-down text-gray-400"></i>
+            </button>
+          </div>
+        </div>
+
+        <button onclick="iniciarCapturaCosecha()" class="w-full bg-[#FF6F00] hover:bg-orange-700 text-white font-bold py-3.5 rounded-xl text-xs uppercase flex items-center justify-center shadow mt-4">
+          <i class="fa-solid fa-chevron-right mr-2 text-sm"></i> Iniciar captura
+        </button>
+      </div>
+    </section>
+
+    <!-- C3. Capturar -->
+    <section id="view-cosecha-capturar" class="app-screen hidden flex-1 flex flex-col bg-gray-100 overflow-y-auto">
+      <div class="bg-[#FF6F00] text-white p-3.5 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-2">
+          <button onclick="navTo('cosecha-registro')" class="text-lg p-1 hover:text-amber-200"><i class="fa-solid fa-arrow-left"></i></button>
+          <div>
+            <h1 class="text-sm font-bold">Cosecha | Uva</h1>
+            <p class="text-[10px] text-amber-100">Registro de lecturas</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-3 text-sm">
+          <button onclick="limpiarLecturas()" class="hover:text-amber-200"><i class="fa-regular fa-trash-can"></i></button>
+        </div>
+      </div>
+
+      <div class="flex border-b bg-white text-xs font-bold text-center">
+        <button id="tab-cosecha-entera" onclick="setTabJaba('JABA')" class="flex-1 py-2.5 text-amber-600 border-b-2 border-amber-500">JABA</button>
+        <button id="tab-cosecha-media" onclick="setTabJaba('MEDIA JABA')" class="flex-1 py-2.5 text-gray-500 border-b-2 border-transparent">MEDIA JABA</button>
+      </div>
+
+      <div class="px-4 py-2 bg-gray-50 flex items-center justify-between text-xs font-semibold text-gray-700 border-b">
+        <span>Tipo Lectura</span>
+        <span class="text-gray-900 bg-white border px-2 py-0.5 rounded text-[11px] font-mono">qr_trabajador ▼</span>
+      </div>
+
+      <div class="relative bg-gray-900 h-48 flex flex-col items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 opacity-40 bg-[radial-gradient(#4b5563_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="relative w-40 h-40 border-2 border-amber-400 rounded-2xl flex items-center justify-center p-2">
+          <div class="scanner-laser"></div>
+          <span class="text-[10px] text-gray-300 font-mono text-center">Apunte al QR</span>
+        </div>
+        <div class="absolute bottom-2 text-white/90 text-[11px] font-mono bg-black/60 px-3 py-0.5 rounded-full">
+          Código lecturado: <span id="lbl-ultimo-codigo-cosecha" class="font-bold text-amber-300">—</span>
+        </div>
+      </div>
+
+      <div class="p-3 grid grid-cols-2 gap-2 bg-gray-50 text-xs">
+        <div class="bg-white p-2 rounded-xl border flex items-center space-x-2">
+          <i class="fa-regular fa-id-badge text-amber-500 text-lg"></i>
+          <div>
+            <span class="block text-[9px] text-gray-400 uppercase font-semibold">Código</span>
+            <span id="badge-cod-trabajador" class="font-bold text-xs">—</span>
+          </div>
+        </div>
+        <div class="bg-white p-2 rounded-xl border flex items-center space-x-2">
+          <i class="fa-solid fa-boxes-stacked text-amber-500 text-lg"></i>
+          <div>
+            <span class="block text-[9px] text-gray-400 uppercase font-semibold">Total Lecturado</span>
+            <span id="badge-total-cosecha" class="font-bold text-xs">8</span>
+          </div>
+        </div>
+        <div class="bg-white p-2 rounded-xl border flex items-center space-x-2">
+          <i class="fa-solid fa-box text-amber-500 text-lg"></i>
+          <div>
+            <span class="block text-[9px] text-gray-400 uppercase font-semibold">J1-JABA UVA 8 G</span>
+            <span id="badge-ratio-cosecha" class="font-bold text-xs">0/1</span>
+          </div>
+        </div>
+        <div class="bg-white p-2 rounded-xl border flex items-center space-x-2">
+          <i class="fa-solid fa-scale-balanced text-amber-500 text-lg"></i>
+          <div>
+            <span class="block text-[9px] text-gray-400 uppercase font-semibold">Total Kilos</span>
+            <span id="badge-kilos-cosecha" class="font-bold text-xs">64.00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-3 bg-white border-t flex-1 flex flex-col justify-end space-y-1.5">
+        <div class="grid grid-cols-3 gap-1.5 text-[10px]">
+          <button onclick="simularEscanerFotocheck('00734395', 'ROSA YANRA')" class="bg-gray-100 border p-2 rounded-lg font-bold text-center leading-tight">
+            Rosa Yanra<br><span class="text-[9px] text-gray-500">00734395</span>
+          </button>
+          <button onclick="simularEscanerFotocheck('00862101', 'BRENDA ACARO')" class="bg-gray-100 border p-2 rounded-lg font-bold text-center leading-tight">
+            Brenda Acaro<br><span class="text-[9px] text-gray-500">00862101</span>
+          </button>
+          <button onclick="simularErrorJaberoActivo()" class="bg-rose-50 border border-rose-200 text-rose-700 p-2 rounded-lg font-bold text-center leading-tight">
+            Jabero Activo<br><span class="text-[9px] text-rose-500">(Error prueba)</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 bg-white border-t text-[11px] font-bold text-gray-500 py-2">
+        <button class="flex flex-col items-center text-amber-600"><i class="fa-solid fa-qrcode mb-0.5"></i> Capturar</button>
+        <button onclick="navTo('cosecha-despacho')" class="flex flex-col items-center hover:text-amber-600"><i class="fa-solid fa-list-check mb-0.5"></i> Lecturas</button>
+        <button onclick="navTo('cosecha-home')" class="flex flex-col items-center hover:text-amber-600"><i class="fa-solid fa-chart-column mb-0.5"></i> Resumen</button>
+      </div>
+    </section>
+
+    <!-- C4. Despacho de Cosecha (Con el botón pequeño para cambiar formato) -->
+    <section id="view-cosecha-despacho" class="app-screen hidden flex-1 flex flex-col bg-gray-50 overflow-hidden">
+      <div class="bg-[#FF6F00] text-white p-3.5 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-3">
+          <button onclick="navTo('cosecha-home')" class="text-lg p-1 hover:text-amber-200"><i class="fa-solid fa-arrow-left"></i></button>
+          <button onclick="openSidebar('drawer-cosecha')" class="text-lg p-1 hover:text-amber-200"><i class="fa-solid fa-bars"></i></button>
+          <div>
+            <h1 class="text-sm font-bold leading-tight">Despacho de Cosecha</h1>
+            <p class="text-[10px] text-amber-100">Cosecha | UVA</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white p-3 border-b shadow-sm text-xs">
+        <div class="flex justify-between items-start">
+          <div class="space-y-0.5 text-gray-600">
+            <p><strong class="text-gray-800">Parcela:</strong> PARCELA 800 | <strong class="text-gray-800">Lote:</strong> L11000</p>
+            <p><strong class="text-gray-800">Caseta:</strong> 0010062190101 | CONVENCIONAL</p>
+          </div>
+          <button class="text-gray-400"><i class="fa-solid fa-chevron-up"></i></button>
+        </div>
+
+        <div class="flex items-center justify-between mt-2.5 pt-2 border-t font-semibold">
+          <span class="text-gray-600">Exportables: <span id="lbl-cosecha-total-exp" class="font-bold text-gray-900">0</span> - Industriales: 0</span>
+
+          <!-- ÁREA COMPACTA: Botón PEQUEÑO para cambiar formato + Checkbox Todo -->
+          <div class="flex items-center space-x-2">
+            <button id="btn-cambiar-formato-small" onclick="openModalCambiarContenedor()" class="hidden bg-amber-500 hover:bg-amber-600 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow-sm transition transform active:scale-95 flex items-center space-x-1">
+              <i class="fa-solid fa-box-open text-[10px]"></i>
+              <span>Cambiar (<span id="lbl-cosecha-sel-count">0</span>)</span>
+            </button>
+            <label class="flex items-center space-x-1 cursor-pointer">
+              <span class="text-gray-700">Todo</span>
+              <input type="checkbox" id="chk-cosecha-todo" onchange="toggleSelectAllCosecha(this.checked)" class="rounded text-amber-500 w-4 h-4">
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div id="lista-despacho-cosecha" class="flex-1 overflow-y-auto p-3 space-y-2"></div>
+
+      <div class="acciones-despacho"><button id="btn-generar-qr" disabled onclick="solicitarGenerarBoletaCosecha()"><i class="fa-solid fa-qrcode"></i> Generar boleta QR</button></div>
+<nav class="tabs-despacho" aria-label="Despacho de cosecha"><button class="activo" onclick="navTo('cosecha-despacho')"><i class="fa-solid fa-truck-fast"></i>Despacho</button><button class="" onclick="navTo('cosecha-resumen')"><i class="fa-solid fa-clipboard-list"></i>Resumen de despacho</button></nav>
+    </section>
+
+    <!-- C5. Boleta de Cosecha -->
+    <section id="view-cosecha-boleta" class="app-screen hidden flex-1 flex flex-col bg-gray-50 overflow-y-auto">
+      <div class="bg-[#FF6F00] text-white p-3.5 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-2">
+          <button onclick="navTo('cosecha-despacho')" class="text-lg p-1 hover:text-amber-200"><i class="fa-solid fa-arrow-left"></i></button>
+          <h1 class="text-sm font-bold">Boleta de Cosecha</h1>
+        </div>
+      </div>
+
+      <div class="p-4 flex-1 flex flex-col items-center justify-between text-xs">
+        <div class="w-full bg-white rounded-2xl p-5 shadow-sm border border-gray-200 flex flex-col items-center">
+          <div class="w-full text-gray-700 mb-2 border-b pb-2 space-y-0.5">
+            <p class="font-bold text-gray-900">Grupo: G001 | Fundo: AGROALEGRE</p>
+            <p>Jabero: <span class="font-semibold text-gray-800">MARIA MERCEDES ADANAQUE CRISANTO</span></p>
+            <p id="boleta-hora" class="text-gray-500 text-[11px]"></p>
+          </div>
+
+          <div id="qrcode-cosecha-boleta" class="p-3 bg-white rounded-xl shadow-inner border my-2"></div>
+
+          <div class="text-center my-1">
+            <span id="boleta-cantidad" class="text-4xl font-extrabold text-gray-800">0</span>
+            <p class="text-[11px] text-gray-500 font-semibold uppercase">Total de jabas</p>
+          </div>
+
+          <div id="boleta-detalle" class="w-full mt-3 bg-gray-50 p-2.5 rounded-xl text-xs"></div>
+        </div>
+
+        <button onclick="confirmarBoletaYPasarAResumen()" class="w-full bg-[#FF6F00] hover:bg-orange-700 text-white font-bold py-3.5 rounded-xl text-xs uppercase shadow mt-4">
+          <i class="fa-solid fa-check mr-2"></i> CONFIRMAR
+        </button>
+      </div>
+    </section>
+
+    <!-- C6. Resumen de Despacho -->
+    <section id="view-cosecha-resumen" class="app-screen hidden flex-1 flex flex-col bg-gray-50 overflow-y-auto">
+      <div class="bg-[#FF6F00] text-white p-3.5 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-3">
+          <button onclick="navTo('cosecha-despacho')" class="text-lg p-1 hover:text-amber-200"><i class="fa-solid fa-arrow-left"></i></button>
+          <button onclick="openSidebar('drawer-cosecha')" class="text-lg p-1 hover:text-amber-200"><i class="fa-solid fa-bars"></i></button>
+          <div>
+            <h1 class="text-sm font-bold">Resumen de despacho</h1>
+            <p class="text-[10px] text-amber-100">Cosecha | UVA</p>
+          </div>
+        </div>
+      </div>
+
+<div class="buscador"><input id="buscar-boletas" placeholder="Buscar boleta o viaje…" aria-label="Buscar boletas" oninput="renderResumenDespachos()"><select id="filtro-boleta" aria-label="Estado" onchange="renderResumenDespachos()"><option value="">Todos</option><option>PENDIENTE</option><option>VINCULADO</option></select></div><div id="lista-boletas-cosecha" class="flex-1 overflow-y-auto p-4 space-y-3"></div><nav class="tabs-despacho" aria-label="Despacho de cosecha"><button class="" onclick="navTo('cosecha-despacho')"><i class="fa-solid fa-truck-fast"></i>Despacho</button><button class="activo" onclick="navTo('cosecha-resumen')"><i class="fa-solid fa-clipboard-list"></i>Resumen de despacho</button></nav>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- 3. MÓDULO TRANSPORTE INTERNO                   -->
+    <!-- ============================================== -->
+
+    <!-- T1. Home Transporte -->
+    <section id="view-transporte-home" class="app-screen hidden flex-1 flex flex-col bg-gray-100 overflow-y-auto">
+      <div class="bg-[#6B118C] text-white pt-3 pb-8 px-5 rounded-b-[2.5rem] shadow relative">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center space-x-3">
+            <button onclick="navTo('menu')" class="text-xl p-1 hover:text-purple-200"><i class="fa-solid fa-arrow-left"></i></button>
+            <button onclick="openSidebar('drawer-transporte')" class="text-xl p-1 hover:text-purple-200"><i class="fa-solid fa-bars"></i></button>
+            <div>
+              <h1 class="text-xl font-bold">Home</h1>
+              <p class="text-xs text-purple-200">Transporte Materia Prima Interno</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<div id="home-cifras-transporte" class="uva-home-cifras home-transporte"></div>
+</section>
+
+    <!-- T2. Nuevo Viaje I. -->
+    <section id="view-transporte-nuevo-viaje" class="app-screen hidden flex-1 flex flex-col bg-gray-50 overflow-y-auto">
+      <div class="bg-[#6B118C] text-white p-3.5 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-3">
+          <button onclick="navTo('transporte-home')" class="text-lg p-1 hover:text-purple-200"><i class="fa-solid fa-arrow-left"></i></button>
+          <button onclick="openSidebar('drawer-transporte')" class="text-lg p-1 hover:text-purple-200"><i class="fa-solid fa-bars"></i></button>
+          <h1 class="text-base font-bold">Nuevo Viaje I.</h1>
+        </div>
+      </div>
+
+      <div class="p-4 flex-1 flex flex-col justify-between text-xs">
+        <div class="bg-white p-4 rounded-2xl shadow-sm border space-y-3">
+          <div>
+            <label class="block text-[11px] font-semibold text-gray-500 uppercase">Fundo</label>
+            <select class="w-full mt-1 border rounded-xl p-2.5 font-bold text-gray-800 bg-white">
+              <option value="AGRICULTOR">AGRICULTOR</option>
+              <option value="AGROALEGRE">AGROALEGRE</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-gray-500 uppercase">Acopio</label>
+            <select class="w-full mt-1 border rounded-xl p-2.5 font-bold text-gray-800 bg-white">
+              <option value="ACOPIO 64">ACOPIO 64</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-gray-500 uppercase">Hora Inicio</label>
+            <div class="flex items-center border rounded-xl px-3 py-2 mt-1">
+              <input type="text" value="15:36" class="w-full font-bold bg-transparent outline-none">
+              <i class="fa-regular fa-clock text-purple-700"></i>
+            </div>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-gray-500 uppercase">Placa</label>
+            <div class="flex items-center space-x-2 mt-1">
+              <input type="text" readonly value="BFJ788" class="flex-1 border rounded-xl p-2.5 font-bold bg-gray-50">
+              <button class="w-10 h-10 border rounded-xl text-purple-700 flex items-center justify-center"><i class="fa-solid fa-camera"></i></button>
+            </div>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-gray-500 uppercase">N° Viaje</label>
+            <input type="text" readonly value="1" class="w-full mt-1 border rounded-xl p-2.5 font-bold bg-gray-50">
+          </div>
+        </div>
+
+        <button onclick="confirmarIniciarViajeTransporte()" class="w-full bg-[#6B118C] hover:bg-purple-900 text-white font-bold py-3.5 rounded-xl text-xs uppercase shadow mt-4">
+          <i class="fa-solid fa-chevron-right mr-2"></i> INICIAR
+        </button>
+      </div>
+    </section>
+
+    <!-- T3. Pantalla Viaje -->
+    <section id="view-transporte-viaje-detalle" class="app-screen hidden flex-1 flex flex-col bg-gray-50 overflow-hidden">
+      <div class="bg-[#6B118C] text-white p-3.5 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-2">
+          <button onclick="navTo('transporte-home')" class="text-base"><i class="fa-solid fa-arrow-left"></i></button>
+          <h1 class="text-xs font-bold">Viaje | Nuevo / Resumen</h1>
+        </div>
+      </div>
+
+      <div class="p-3 bg-white border-b text-xs space-y-0.5">
+        <p><strong>Viaje:</strong> <span class="font-mono text-gray-600">BFJ788364510949571944448000000000</span> Acopio: ACOPIO 64</p>
+        <p><strong>Conductor:</strong> SANTISTEBAN YAUCE CESAR</p>
+        <p><strong>Placa:</strong> BFJ788 | Hora: 15:36</p>
+      </div>
+
+      <div class="p-3 grid grid-cols-2 gap-2 bg-gray-100">
+        <button id="btn-tab-recojo-t" onclick="switchTabTransporte('recojo')" class="bg-[#6B118C] text-white py-2.5 rounded-xl text-xs font-bold shadow">
+          <i class="fa-solid fa-download mr-1.5"></i> RECOJO
+        </button>
+        <button id="btn-tab-entrega-t" onclick="switchTabTransporte('entrega')" class="bg-white text-purple-800 border py-2.5 rounded-xl text-xs font-bold">
+          <i class="fa-solid fa-upload mr-1.5"></i> ENTREGA (<span id="lbl-transporte-cant-cargada">0</span>)
+        </button>
+      </div>
+
+      <div class="p-4 flex-1 flex flex-col justify-between overflow-y-auto">
+        <div id="panel-recojo-t" class="flex-1 flex flex-col justify-center items-center text-center space-y-4">
+          <button onclick="abrirModalOpcionesRecojoTransporte()" class="w-full bg-[#6B118C] hover:bg-purple-900 text-white font-bold py-3.5 rounded-xl text-xs uppercase shadow flex items-center justify-center">
+            <i class="fa-solid fa-camera mr-2"></i> NUEVO RECOJO
+          </button>
+        </div>
+
+        <div id="panel-entrega-t" class="hidden flex-1 flex flex-col justify-between text-xs">
+          <div class="bg-white p-3 rounded-xl border space-y-1.5 font-mono">
+            <p>1 J2-JABA UVA 8 G SWEET GLOBE EXPORTABLE (1/1)</p>
+            <p>1 J1-JABA UVA 8 G SWEET GLOBE EXPORTABLE (1/1)</p>
+          </div>
+          <button onclick="confirmarEntregaEnAcopioTransporte()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-xs uppercase shadow mt-4">
+            ENTREGA A ACOPIO
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- T4. Recojo Manual -->
+    <section id="view-transporte-recojo-manual" class="app-screen hidden flex-1 flex flex-col bg-gray-50 overflow-y-auto">
+      <div class="bg-[#6B118C] text-white p-3.5 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-2">
+          <button onclick="navTo('transporte-viaje-detalle')" class="text-base"><i class="fa-solid fa-arrow-left"></i></button>
+          <h1 class="text-xs font-bold">Nuevo Viaje | Recepción</h1>
+        </div>
+      </div>
+
+      <div class="p-4 flex-1 flex flex-col justify-between text-xs">
+        <div class="bg-white p-4 rounded-2xl border space-y-3">
+          <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wider text-center border-b pb-2">RECOJO MANUAL</h2>
+          <div class="grid grid-cols-2 gap-2 text-[10px]">
+            <div>Jabero: <strong>MARIA MERCEDES</strong></div>
+            <div>Caseta: <strong>0010062190101</strong></div>
+            <div>Grupo: <strong>G001</strong></div>
+            <div>Parcela: <strong>PARCELA 800</strong></div>
+          </div>
+          <div class="border-t pt-2 space-y-1.5">
+            <p class="font-bold text-[11px] text-gray-700">DETALLES:</p>
+            <div class="flex justify-between p-2 bg-gray-50 rounded border">
+              <span>1 J2-JABA UVA 8 G SWEET GLOBE</span>
+              <strong class="font-mono">1</strong>
+            </div>
+            <div class="flex justify-between p-2 bg-gray-50 rounded border">
+              <span>1 J1-JABA UVA 8 G SWEET GLOBE</span>
+              <strong class="font-mono">1</strong>
+            </div>
+            <div class="text-right font-bold text-xs pt-1">Total: <span class="text-purple-800">2.00</span></div>
+          </div>
+        </div>
+
+        <button onclick="confirmarRecepcionTransporteFinal()" class="w-full bg-[#6B118C] hover:bg-purple-900 text-white font-bold py-3.5 rounded-xl text-xs uppercase shadow mt-4">
+          CONFIRMAR VIAJE
+        </button>
+      </div>
+    </section>
+
+    <!-- T5. QR Confirmación Transporte -->
+    <section id="view-transporte-qr" class="app-screen hidden flex-1 flex flex-col bg-gray-50 overflow-y-auto">
+      <div class="bg-[#6B118C] text-white p-3.5 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-2">
+          <button onclick="navTo('transporte-viaje-detalle')" class="text-base"><i class="fa-solid fa-arrow-left"></i></button>
+          <h1 class="text-xs font-bold" id="lbl-titulo-qr-transporte">Transporte de Materia Prima</h1>
+        </div>
+      </div>
+
+      <div class="p-4 flex-1 flex flex-col items-center justify-between text-xs">
+        <div class="w-full bg-white rounded-2xl p-5 shadow-sm border flex flex-col items-center">
+          <h3 class="text-xs font-extrabold uppercase text-purple-700 tracking-wider mb-2" id="lbl-subtitulo-qr-transporte">QR DE CONFIRMACIÓN</h3>
+          <div id="qrcode-transporte" class="p-3 bg-white rounded-xl shadow-inner border my-2"></div>
+          <span class="text-3xl font-extrabold text-gray-800 mt-1">2</span>
+          <div class="w-full mt-3 bg-gray-50 p-2.5 rounded-xl font-mono text-[10px] space-y-0.5 text-gray-600">
+            <p>Conductor: SANTISTEBAN YAUCE CESAR | Placa: BFJ788</p>
+            <p>Parcela: PARCELA 800 Tipo: CONVENCIONAL</p>
+          </div>
+        </div>
+
+        <button onclick="continuarDespuesDeQRTransporte()" class="w-full bg-[#6B118C] hover:bg-purple-900 text-white font-bold py-3.5 rounded-xl text-xs uppercase shadow mt-4">
+          CONTINUAR
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- 4. MÓDULO ACOPIO                               -->
+    <!-- ============================================== -->
+
+    <!-- A1. Home Acopio -->
+    <section id="view-acopio-home" class="app-screen hidden flex-1 flex flex-col bg-gray-100 overflow-y-auto">
+      <div class="bg-[#6B118C] text-white pt-3 pb-8 px-5 rounded-b-[2.5rem] shadow relative">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center space-x-3">
+            <button onclick="navTo('menu')" class="text-xl p-1 hover:text-purple-200"><i class="fa-solid fa-arrow-left"></i></button>
+            <button onclick="openSidebar('drawer-acopio')" class="text-xl p-1 hover:text-purple-200"><i class="fa-solid fa-bars"></i></button>
+            <div>
+              <h1 class="text-xl font-bold leading-tight">Home</h1>
+              <p class="text-xs text-purple-200">Prepacking Uva</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<div id="home-cifras-acopio" class="uva-home-cifras home-acopio"></div>
+</section>
+
+    <!-- A2. Registro de Prepacking -->
+    <section id="view-acopio-registro" class="app-screen hidden flex-1 flex flex-col bg-gray-50 overflow-y-auto">
+      <div class="bg-[#6B118C] text-white p-3.5 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-3">
+          <button onclick="navTo('acopio-home')" class="text-lg p-1 hover:text-purple-200"><i class="fa-solid fa-arrow-left"></i></button>
+          <button onclick="openSidebar('drawer-acopio')" class="text-lg p-1 hover:text-purple-200"><i class="fa-solid fa-bars"></i></button>
+          <h1 class="text-base font-bold">Registro de Prepacking</h1>
+        </div>
+      </div>
+
+      <div class="p-4 flex-1 flex flex-col justify-between text-xs">
+        <div class="bg-white p-4 rounded-2xl border space-y-3">
+          <div>
+            <label class="block font-semibold text-gray-500 uppercase text-[10px]">Fundo</label>
+            <select id="prepacking-fundo" onchange="actualizarAcopioPreV11()" class="w-full mt-1 border rounded-xl p-2.5 font-bold text-gray-800 bg-white"><option value="">Seleccionar fundo</option><option>Agroalegre</option><option>Terra</option></select>
+          </div>
+          <div>
+            <label class="block font-semibold text-gray-500 uppercase text-[10px]">Pre-packing</label>
+            <select id="prepacking-acopio" disabled class="w-full mt-1 border rounded-xl p-2.5 font-bold text-gray-800 bg-white"><option value="">Seleccionar acopio</option></select>
+          </div>
+
+        </div>
+
+        <button onclick="guardarRegistroAcopioFinal()" class="w-full bg-[#6B118C] hover:bg-purple-900 text-white font-bold py-3.5 rounded-xl text-xs uppercase shadow mt-4">
+          <i class="fa-regular fa-floppy-disk mr-2"></i> GUARDAR
+        </button>
+      </div>
+    </section>
+
+    <!-- A3. Gestión de Prepacking -->
+    <section id="view-acopio-gestion" class="app-screen hidden flex-1 flex flex-col bg-gray-50 overflow-hidden">
+      <div class="bg-[#6B118C] text-white p-3 shadow">
+        <div class="flex items-center justify-between mb-1.5">
+          <div class="flex items-center space-x-3">
+            <button onclick="navTo('acopio-home')" class="text-base hover:text-purple-200"><i class="fa-solid fa-arrow-left"></i></button>
+            <button onclick="openSidebar('drawer-acopio')" class="text-base hover:text-purple-200"><i class="fa-solid fa-bars"></i></button>
+            <h1 class="text-xs font-bold">Gestión de Prepacking</h1>
+          </div>
+          <button onclick="abrirScannerRecepcionAcopio()" class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center"><i class="fa-solid fa-camera"></i></button>
+        </div>
+      </div>
+      <div class="encabezado-personal" id="gestion-encabezado"></div>
+      <div class="buscador"><input id="buscar-gestion" placeholder="Buscar viaje, calibre o pallet…" aria-label="Buscar en gestión" oninput="actualizarAcopio()"><select id="filtro-calibre" aria-label="Filtrar calibre" onchange="actualizarAcopio()"><option value="">Todos</option><option>J1</option><option>J2</option></select></div>
+
+      <div class="flex-1 overflow-y-auto relative">
+        <!-- Subtab 1: Recepción -->
+        <div id="subview-acopio-recepcion" class="p-3 space-y-3">
+          <div id="lista-viajes-acopio-recep" class="space-y-3"></div>
+
+          <!-- Menú flotante -->
+
+        </div>
+
+        <!-- Subtab 2: Paletizado -->
+        <div id="subview-acopio-paletizado" class="hidden p-3 space-y-3">
+          <div id="lista-pallets-proceso" class="space-y-3"></div>
+        </div>
+
+        <!-- Subtab 3: Transferencia -->
+        <div id="subview-acopio-transferencia" class="hidden p-3 space-y-3">
+          
+          <div id="lista-pallets-cerrados-historial" class="space-y-3"></div>
+        </div>
+      </div>
+
+<div id="menu-flotante-acopio" class="hidden acciones-acopio"><div id="acciones-acopio-lista"><button onclick="accionPaletizarAcopio()"><i class="fa-solid fa-boxes-stacked"></i> Paletizar</button><button onclick="accionTransferirAcopio('Croquista')"><i class="fa-solid fa-person"></i> Croquista</button><button onclick="accionTransferirAcopio('Calidad')"><i class="fa-solid fa-clipboard-check"></i> Calidad</button></div><small id="lbl-acopio-sel-count"></small><button class="acciones-toggle" onclick="toggleMenu('acciones-acopio-lista')" aria-label="Abrir o cerrar acciones"><i class="fa-solid fa-layer-group"></i></button></div>
+      <!-- Barra inferior Gestión -->
+      <div class="grid grid-cols-3 bg-white border-t text-[10px] font-bold text-gray-500 py-1.5 select-none shadow">
+        <button id="tab-acopio-recep" onclick="switchSubtabAcopio('recepcion')" class="flex flex-col items-center text-purple-700 py-1 font-bold">
+          <i class="fa-solid fa-dolly text-base mb-0.5"></i> Recepción
+        </button>
+        <button id="tab-acopio-palet" onclick="switchSubtabAcopio('paletizado')" class="flex flex-col items-center hover:text-purple-700 py-1 font-medium">
+          <i class="fa-solid fa-boxes-stacked text-base mb-0.5"></i> Paletizado
+        </button>
+        <button id="tab-acopio-transf" onclick="switchSubtabAcopio('transferencia')" class="flex flex-col items-center hover:text-purple-700 py-1 font-medium">
+          <i class="fa-solid fa-truck-arrow-right text-base mb-0.5"></i> Destino pallet
+        </button>
+      </div>
+    </section>
+
+    <!-- A4. PANTALLA: RESUMEN ACOPIO -->
+    <section id="view-acopio-resumen" class="app-screen hidden flex-1 flex flex-col overflow-hidden">
+<div class="module-header"><button onclick="openSidebar('drawer-acopio')" aria-label="Abrir menú"><i class="fa-solid fa-bars"></i></button><h1>Resumen de Prepacking</h1></div>
+<div id="resumen-encabezado" class="encabezado-personal"></div>
+<div class="buscador"><input id="buscar-resumen" aria-label="Buscar parcela, viaje o pallet" placeholder="Buscar parcela, viaje o pallet…" oninput="renderResumenAcopio()"></div>
+<div id="resumen-totales" class="resumen-totales"></div>
+<div id="lista-resumen-pallets-acopio" class="listado-scroll"></div>
+<nav class="tabs-despacho tabs-acopio"><button data-resumen="total" onclick="cambiarResumen('total')"><i class="fa-regular fa-clipboard"></i>Total</button><button data-resumen="recepcion" onclick="cambiarResumen('recepcion')"><i class="fa-solid fa-dolly"></i>Recepción</button><button data-resumen="transferencia" onclick="cambiarResumen('transferencia')"><i class="fa-solid fa-truck"></i>Destino pallet</button></nav></section>
+
+    <!-- A5. Confirmación Recepción Prepacking -->
+    <section id="view-acopio-confirmar-recep" class="app-screen hidden flex-1 flex flex-col bg-gray-50 overflow-y-auto">
+      <div class="bg-[#6B118C] text-white p-3.5 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-2">
+          <button onclick="navTo('acopio-gestion')" class="text-base"><i class="fa-solid fa-arrow-left"></i></button>
+          <h1 class="text-xs font-bold">Confirmación Recepción Prepacking</h1>
+        </div>
+      </div>
+
+      <div class="p-3.5 flex-1 flex flex-col justify-between text-xs">
+        <div class="bg-white p-4 rounded-2xl border space-y-3">
+          <div class="border-b pb-2 text-[11px] text-gray-600 space-y-0.5">
+            <p><strong>Viaje:</strong> <span class="font-mono text-gray-800">BFJ788364510949571944448000000000</span></p>
+            <p>Acopio: ACOPIO 64 | Placa: BFJ788 | Conductor: SANTISTEBAN YAUCE CESAR</p>
+          </div>
+
+          <div class="bg-purple-50 p-2.5 rounded-xl border border-purple-200">
+            <label class="block font-bold text-purple-900 text-[11px] mb-1">
+              <i class="fa-solid fa-temperature-half mr-1 text-purple-600"></i> Temperatura de Recepción (°C):
+            </label>
+            <div class="flex items-center space-x-2">
+              <input type="number" step="0.1" id="input-acopio-temp" required placeholder="Ingrese la temperatura" class="w-full bg-white border rounded-lg p-2 font-bold text-gray-800 text-xs">
+              <span class="font-bold text-purple-800">°C</span>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-bold text-gray-700 text-[11px] mb-1.5">Contenedores editables:</label>
+            <div class="space-y-2">
+              <div class="p-2.5 bg-gray-50 rounded-xl border flex items-center justify-between">
+                <div>
+                  <p class="font-bold text-gray-800">J2-JABA UVA 8 G SWEET GLOBE</p>
+                  <span class="text-[10px] text-gray-500">EXPORTABLE CONVENCIONAL</span>
+                </div>
+                <input type="number" id="inp-recep-j2" value="100" oninput="recalcularTotalRecepAcopio()" class="w-16 border rounded-lg p-1.5 text-center font-bold bg-white">
+              </div>
+              <div class="p-2.5 bg-gray-50 rounded-xl border flex items-center justify-between">
+                <div>
+                  <p class="font-bold text-gray-800">J1-JABA UVA 8 G SWEET GLOBE</p>
+                  <span class="text-[10px] text-gray-500">EXPORTABLE CONVENCIONAL</span>
+                </div>
+                <input type="number" id="inp-recep-j1" value="150" oninput="recalcularTotalRecepAcopio()" class="w-16 border rounded-lg p-1.5 text-center font-bold bg-white">
+              </div>
+            </div>
+            <div class="text-right mt-2 font-bold text-gray-800">
+              Total: <span id="lbl-total-recep-acopio" class="text-purple-700 text-sm">0</span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="confirmarRecepcionAcopioFinal()" class="w-full bg-[#6B118C] hover:bg-purple-900 text-white font-bold py-3.5 rounded-xl text-xs uppercase shadow mt-4">
+          CONFIRMAR
+        </button>
+      </div>
+    </section>
+
+    <!-- A6. QR Confirmación Recepción Prepacking -->
+    <section id="view-acopio-qr-confirmar" class="app-screen hidden flex-1 flex flex-col bg-gray-50 overflow-y-auto">
+      <div class="bg-[#6B118C] text-white p-3.5 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-2">
+          <button onclick="navTo('acopio-confirmar-recep')" class="text-base"><i class="fa-solid fa-arrow-left"></i></button>
+          <h1 class="text-xs font-bold">Confirmación Recepción Prepacking</h1>
+        </div>
+      </div>
+
+      <div class="p-4 flex-1 flex flex-col items-center justify-between text-xs">
+        <div class="w-full bg-white rounded-2xl p-5 border flex flex-col items-center">
+          <h3 class="text-xs font-extrabold uppercase text-purple-700 tracking-wider mb-2">QR DE CONFIRMACIÓN</h3>
+          <div id="qrcode-acopio-recep" class="p-3 bg-white rounded-xl border my-2"></div>
+          <span id="lbl-qr-acopio-recep-cant" class="text-3xl font-extrabold text-gray-800 mt-1">0</span>
+          <p>Temperatura: <strong id="lbl-qr-acopio-recep-temp" class="text-purple-700">14.5 °C</strong></p>
+        </div>
+
+        <button onclick="volverAGestionAcopio()" class="w-full bg-[#6B118C] hover:bg-purple-900 text-white font-bold py-3.5 rounded-xl text-xs uppercase shadow mt-4">
+          CONTINUAR
+        </button>
+      </div>
+    </section>
+
+    <!-- A7. Agrupar Contenedores - Paletizado -->
+    <section id="view-acopio-paletizar-agrupar" class="app-screen hidden flex-1 flex flex-col bg-gray-50 overflow-y-auto">
+      <div class="bg-[#6B118C] text-white p-3.5 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-2">
+          <button onclick="navTo('acopio-gestion')" class="text-base"><i class="fa-solid fa-arrow-left"></i></button>
+          <h1 class="text-xs font-bold">Agrupar Contenedores | Paletizado</h1>
+        </div>
+      </div>
+
+      <div class="p-3.5 flex-1 flex flex-col justify-between text-xs">
+        <div class="bg-white p-3.5 rounded-2xl border space-y-3">
+          <p>Temperatura promedio: <strong id="lbl-temp-pallet">—</strong></p><div id="lista-inputs-agrupar-pallet" class="space-y-2.5"></div>
+          <div class="text-right font-bold text-gray-800 pt-2 border-t">
+            Total Pallet: <span id="lbl-total-pallet-agrupado" class="text-purple-700 text-sm">0</span>
+          </div>
+        </div>
+
+        <button onclick="confirmarCrearPalletAcopio()" class="w-full bg-[#6B118C] hover:bg-purple-900 text-white font-bold py-3.5 rounded-xl text-xs uppercase shadow mt-4">
+          PALETIZAR
+        </button>
+      </div>
+    </section>
+
+    <!-- A8. Transferir a Croquista / Calidad -->
+    <section id="view-acopio-transferir" class="app-screen hidden flex-1 flex flex-col bg-gray-50 overflow-y-auto">
+      <div class="bg-[#6B118C] text-white p-3.5 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-2">
+          <button onclick="navTo('acopio-gestion')" class="text-base"><i class="fa-solid fa-arrow-left"></i></button>
+          <h1 class="text-xs font-bold" id="lbl-titulo-transf-acopio">Transferir Contenedor</h1>
+        </div>
+      </div>
+
+      <div class="p-4 flex-1 flex flex-col justify-between text-xs">
+        <div class="bg-white p-4 rounded-2xl border space-y-3">
+          <p class="font-bold text-gray-700 text-xs">Detalle de transferencia:</p>
+          <div id="lista-transferencia-detalle" class="space-y-3"></div>
+        </div>
+
+        <button onclick="confirmarTransferenciaAcopio()" class="w-full bg-[#6B118C] hover:bg-purple-900 text-white font-bold py-3.5 rounded-xl text-xs uppercase shadow mt-4">
+          TRANSFERIR
+        </button>
+      </div>
+    </section>
+
+    <!-- A9. QR Transferencia -->
+    <section id="view-acopio-qr-transf" class="app-screen hidden flex-1 flex flex-col bg-gray-50 overflow-y-auto">
+      <div class="bg-[#6B118C] text-white p-3.5 flex items-center justify-between shadow">
+        <div class="flex items-center space-x-2">
+          <button onclick="navTo('acopio-transferir')" class="text-base"><i class="fa-solid fa-arrow-left"></i></button>
+          <h1 class="text-xs font-bold">Confirmación de Transferencia</h1>
+        </div>
+      </div>
+
+      <div class="p-4 flex-1 flex flex-col items-center justify-between text-xs">
+        <div class="w-full bg-white rounded-2xl p-5 border flex flex-col items-center">
+          <h3 class="text-xs font-extrabold uppercase text-purple-700 tracking-wider mb-2">QR DE TRANSFERENCIA</h3>
+          <div id="qrcode-acopio-transf" class="p-3 bg-white rounded-xl border my-2"></div>
+          <span id="lbl-cant-qr-transf" class="text-3xl font-extrabold text-gray-800 mt-1">0</span>
+        </div>
+
+        <button onclick="finalizarTransferenciaAcopio()" class="w-full bg-[#6B118C] hover:bg-purple-900 text-white font-bold py-3.5 rounded-xl text-xs uppercase shadow mt-4">
+          CONFIRMAR TRANSFERENCIA
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- DRAWERS LATERALES (EN LA MISMA PANTALLA)      -->
+    <!-- ============================================== -->
+
+    <!-- DRAWER 1: COSECHA -->
+    <div id="drawer-cosecha" class="hidden fixed inset-0 z-50 flex">
+      <div class="w-72 bg-white h-full shadow-2xl flex flex-col text-xs font-semibold animate-slide-right">
+        <div class="bg-[#FF6F00] text-white p-4 flex justify-between items-center">
+          <div class="flex items-center space-x-3">
+            <i class="fa-solid fa-arrow-left text-lg cursor-pointer hover:text-amber-200" onclick="closeSidebar('drawer-cosecha')"></i>
+            <span class="font-bold text-base uppercase">COSECHA</span>
+          </div>
+          <i class="fa-regular fa-calendar-days text-lg"></i>
+        </div>
+        <div class="p-3 space-y-1 flex-1 overflow-y-auto">
+          <button onclick="navTo('cosecha-home'); closeSidebar('drawer-cosecha')" class="w-full text-left p-2.5 rounded-lg text-amber-600 hover:bg-amber-50 flex items-center"><i class="fa-solid fa-house w-6 text-amber-500"></i> Home</button>
+          <button onclick="abrirMaestraComun()" class="w-full text-left p-2.5 rounded-lg hover:bg-gray-100 flex items-center"><i class="fa-solid fa-cloud-arrow-down w-6 text-gray-500"></i> Data Maestra</button>
+          <button onclick="navTo('cosecha-registro'); closeSidebar('drawer-cosecha')" class="w-full text-left p-2.5 rounded-lg text-amber-600 hover:bg-amber-50 flex items-center"><i class="fa-solid fa-clipboard-list w-6 text-amber-500"></i> Registro de Cosecha</button>
+          <button onclick="navTo('cosecha-despacho'); closeSidebar('drawer-cosecha')" class="w-full text-left p-2.5 rounded-lg hover:bg-gray-100 flex items-center"><i class="fa-solid fa-truck-fast w-6 text-gray-500"></i> Despacho de Cosecha</button>
+          <button onclick="navTo('cosecha-resumen'); closeSidebar('drawer-cosecha')" class="w-full text-left p-2.5 rounded-lg hover:bg-gray-100 flex items-center"><i class="fa-solid fa-square-check w-6 text-gray-500"></i> Resumen de Despacho</button>
+          <button onclick="enviarInformacion28('cosecha')" class="w-full text-left p-2.5 rounded-lg text-blue-700 flex items-center"><i class="fa-solid fa-paper-plane w-6"></i> Enviar información</button>
+          <button onclick="navTo('menu'); closeSidebar('drawer-cosecha')" class="w-full text-left p-2.5 rounded-lg text-rose-600 hover:bg-rose-50 border-t mt-4 flex items-center"><i class="fa-solid fa-circle-arrow-left w-6"></i> Menú Principal</button>
+        </div>
+      </div>
+      <div class="flex-1 bg-black/50" onclick="closeSidebar('drawer-cosecha')"></div>
+    </div>
+
+    <!-- DRAWER 2: TRANSPORTE INTERNO -->
+    <div id="drawer-transporte" class="hidden fixed inset-0 z-50 flex">
+      <div class="w-72 bg-white h-full shadow-2xl flex flex-col text-xs font-semibold animate-slide-right">
+        <div class="bg-[#6B118C] text-white p-4 flex justify-between items-center">
+          <div class="flex items-center space-x-3">
+            <i class="fa-solid fa-arrow-left text-lg cursor-pointer hover:text-purple-200" onclick="closeSidebar('drawer-transporte')"></i>
+            <span class="font-bold text-base uppercase">TRANSPORTE INTERNO</span>
+          </div>
+          <i class="fa-regular fa-calendar-days text-lg"></i>
+        </div>
+        <div class="p-3 space-y-1 flex-1 overflow-y-auto">
+          <button onclick="navTo('transporte-home'); closeSidebar('drawer-transporte')" class="w-full text-left p-2.5 rounded-lg text-purple-700 hover:bg-purple-50 flex items-center"><i class="fa-solid fa-house w-6 text-purple-600"></i> Home</button>
+          <button onclick="navTo('transporte-nuevo-viaje'); closeSidebar('drawer-transporte')" class="w-full text-left p-2.5 rounded-lg hover:bg-purple-50 flex items-center"><i class="fa-solid fa-truck w-6 text-purple-600"></i> Nuevo Viaje</button>
+          <button onclick="enviarInformacion28('transporte')" class="w-full text-left p-2.5 rounded-lg text-blue-700 flex items-center"><i class="fa-solid fa-paper-plane w-6"></i> Enviar información</button>
+          <button onclick="navTo('menu'); closeSidebar('drawer-transporte')" class="w-full text-left p-2.5 rounded-lg text-rose-600 hover:bg-rose-50 border-t mt-4 flex items-center"><i class="fa-solid fa-circle-arrow-left w-6"></i> Menú Principal</button>
+        </div>
+      <button onclick="abrirMaestraComun()" class="w-full text-left p-2.5 rounded-lg"><i class="fa-solid fa-cloud-arrow-down"></i> Data maestra</button></div>
+      <div class="flex-1 bg-black/50" onclick="closeSidebar('drawer-transporte')"></div>
+    </div>
+
+    <!-- DRAWER 3: ACOPIO (CON RESUMEN ACOPIO) -->
+    <div id="drawer-acopio" class="hidden fixed inset-0 z-50 flex">
+      <div class="w-72 bg-white h-full shadow-2xl flex flex-col text-xs font-semibold animate-slide-right">
+        <div class="bg-[#6B118C] text-white p-4 flex justify-between items-center">
+          <div class="flex items-center space-x-3">
+            <i class="fa-solid fa-arrow-left text-lg cursor-pointer hover:text-purple-200" onclick="closeSidebar('drawer-acopio')"></i>
+            <span class="font-bold text-base uppercase">PREPACKING</span>
+          </div>
+          <i class="fa-regular fa-calendar-days text-lg"></i>
+        </div>
+        <div class="p-3 space-y-1 flex-1 overflow-y-auto">
+          <button onclick="navTo('acopio-home'); closeSidebar('drawer-acopio')" class="w-full text-left p-2.5 rounded-lg text-purple-700 hover:bg-purple-50 flex items-center"><i class="fa-solid fa-house w-6 text-purple-600"></i> Home</button>
+          <button onclick="abrirMaestraComun('prepacking')" class="w-full text-left p-2.5 rounded-lg"><i class="fa-solid fa-cloud-arrow-down w-6"></i> Data maestra</button>
+          <button onclick="navTo('acopio-registro'); closeSidebar('drawer-acopio')" class="w-full text-left p-2.5 rounded-lg hover:bg-purple-50 flex items-center"><i class="fa-solid fa-clipboard-list w-6 text-purple-600"></i> Registro de Prepacking</button>
+          <button onclick="navTo('acopio-gestion'); closeSidebar('drawer-acopio')" class="w-full text-left p-2.5 rounded-lg hover:bg-purple-50 flex items-center"><i class="fa-solid fa-warehouse w-6 text-purple-600"></i> Gestión de Prepacking</button>
+          <button onclick="navTo('acopio-resumen'); closeSidebar('drawer-acopio')" class="w-full text-left p-2.5 rounded-lg text-purple-700 hover:bg-purple-50 flex items-center"><i class="fa-solid fa-chart-pie w-6 text-purple-600"></i> Resumen de Prepacking</button>
+          <button onclick="enviarInformacion28('prepacking')" class="w-full text-left p-2.5 rounded-lg text-blue-700 flex items-center"><i class="fa-solid fa-paper-plane w-6"></i> Enviar información</button>
+          <button onclick="navTo('menu'); closeSidebar('drawer-acopio')" class="w-full text-left p-2.5 rounded-lg text-rose-600 hover:bg-rose-50 border-t mt-4 flex items-center"><i class="fa-solid fa-circle-arrow-left w-6"></i> Menú Principal</button>
+        </div>
+</div>
+      <div class="flex-1 bg-black/50" onclick="closeSidebar('drawer-acopio')"></div>
+    </div>
+
+    <!-- MODAL CAMBIAR CONTENEDOR (J1 / J2) -->
+    <div id="modal-cambiar-contenedor-cosecha" class="hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 p-3">
+      <div class="w-full max-w-sm bg-white rounded-3xl p-5 shadow-2xl animate-fade-in text-xs">
+        <div class="flex justify-between items-center pb-2 border-b">
+          <div class="flex items-center space-x-2">
+            <div class="w-7 h-7 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center">
+              <i class="fa-solid fa-box"></i>
+            </div>
+            <h3 class="font-bold text-sm text-gray-800">Cambiar Contenedor</h3>
+          </div>
+          <button onclick="closeModalCambiarContenedor()" class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+        </div>
+
+        <p class="text-xs text-gray-500 mt-2">
+          Seleccione el formato para los <strong id="lbl-modal-count-jabas" class="text-amber-600">0</strong> ítems seleccionados:
+        </p>
+
+        <div class="mt-4">
+          <label class="block font-semibold text-gray-600 mb-1">Tipo de contenedor:</label>
+          <select id="sel-tipo-contenedor-modal" class="w-full border rounded-xl p-2.5 font-bold text-gray-800 bg-white focus:ring-2 focus:ring-amber-500 outline-none">
+            <option value="J1">J1 - JABA UVA 8 G</option>
+            <option value="J2">J2 - JABA UVA 8 G</option>
+          </select>
+        </div>
+
+        <div class="mt-5 flex space-x-2">
+          <button onclick="closeModalCambiarContenedor()" class="flex-1 py-3 border rounded-xl font-bold text-gray-600">CANCELAR</button>
+          <button onclick="aplicarCambioContenedorCosecha()" class="flex-1 py-3 bg-[#FF6F00] hover:bg-orange-700 text-white rounded-xl font-bold shadow">APLICAR CAMBIOS</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- POP-UP DESTINO AL CERRAR PALLET -->
+    <div id="modal-destino-pallet" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+      <div class="w-full max-w-xs bg-white rounded-3xl p-5 shadow-2xl animate-fade-in text-xs">
+        <div class="flex justify-between items-center pb-2 border-b">
+          <h3 class="font-bold text-xs text-gray-800 uppercase">¿A dónde desea enviar?</h3>
+          <button onclick="cerrarModalDestinoPallet()" class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-sm"></i></button>
+        </div>
+
+        <p class="text-gray-500 text-[11px] my-3">
+          Seleccione el destino para el Pallet cerrado <strong id="lbl-modal-id-pallet" class="text-purple-700 font-mono">20903551073</strong>:
+        </p>
+
+        <div class="space-y-2">
+          <label class="flex items-center space-x-2 p-2.5 rounded-xl border bg-gray-50 cursor-pointer hover:bg-purple-50">
+            <input type="radio" name="opt-destino-pallet" value="GASIFICADO" checked class="text-purple-600">
+            <span class="font-bold text-gray-800">Gasificado</span>
+          </label>
+          <label class="flex items-center space-x-2 p-2.5 rounded-xl border bg-gray-50 cursor-pointer hover:bg-purple-50">
+            <input type="radio" name="opt-destino-pallet" value="DESPACHO" class="text-purple-600">
+            <span class="font-bold text-gray-800">Envío a planta</span>
+          </label>
+        </div>
+
+        <div class="mt-4 flex space-x-2">
+          <button onclick="cerrarModalDestinoPallet()" class="flex-1 py-2.5 border rounded-xl font-bold text-gray-600">CANCELAR</button>
+          <button onclick="confirmarDestinoPalletFinal()" class="flex-1 py-2.5 bg-[#6B118C] hover:bg-purple-900 text-white rounded-xl font-bold shadow">CONFIRMAR</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL ALERTA RESTRICCIÓN CALIBRES -->
+    <div id="modal-restriccion-paletizado" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+      <div class="w-full max-w-xs bg-white rounded-3xl p-5 shadow-2xl text-center flex flex-col items-center text-xs">
+        <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center text-xl mb-3">
+          <i class="fa-solid fa-ban"></i>
+        </div>
+        <h3 class="font-bold text-sm text-gray-800 mb-1">Calibres diferentes</h3>
+        <p class="text-gray-600 mb-4 text-[11px] leading-relaxed">
+          Seleccione contenedores del mismo calibre para paletizar, transferir a Croquista o enviar a Calidad. No se permite mezclar J1 con J2.
+        </p>
+        <button onclick="cerrarRestriccionPaletizadoModal()" class="w-full bg-rose-600 text-white font-bold py-2.5 rounded-xl uppercase shadow">
+          ENTENDIDO
+        </button>
+      </div>
+    </div>
+
+    <!-- MODAL RECOJO TRANSPORTE -->
+    <div id="modal-opciones-recojo-t" class="hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 p-4">
+      <div class="w-full max-w-sm bg-white rounded-3xl p-5 shadow-2xl text-xs space-y-3">
+        <div class="flex justify-between items-center pb-2 border-b">
+          <h3 class="font-bold text-sm text-gray-800 uppercase">NUEVO RECOJO</h3>
+          <button onclick="cerrarModalOpcionesRecojoTransporte()"><i class="fa-solid fa-xmark text-lg text-gray-400"></i></button>
+        </div>
+        <button onclick="iniciarRecojoPorQRTransporte('jabero')" class="w-full bg-purple-50 text-purple-900 p-3 rounded-2xl font-bold flex justify-between items-center border">
+          <span>ESCANEAR QR JABERO</span><i class="fa-solid fa-chevron-right text-purple-400"></i>
+        </button>
+        <button onclick="iniciarRecojoPorQRTransporte('caseta')" class="w-full bg-purple-50 text-purple-900 p-3 rounded-2xl font-bold flex justify-between items-center border">
+          <span>ESCANEAR QR CASETA</span><i class="fa-solid fa-chevron-right text-purple-400"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- MODAL GENÉRICO CÁMARA QR -->
+    <div id="modal-camara-generica" class="hidden fixed inset-0 z-50 flex flex-col bg-black text-white">
+      <div class="p-4 flex items-center justify-between border-b border-gray-800">
+        <button onclick="cerrarCamaraGenerica()"><i class="fa-solid fa-arrow-left text-lg"></i></button>
+        <span class="text-sm font-bold" id="lbl-titulo-camara-generica">Escanear QR Caseta</span>
+        <span></span>
+      </div>
+      <div class="flex-1 flex flex-col items-center justify-center p-4">
+        <div class="w-64 h-64 border-2 border-purple-500 rounded-2xl relative flex items-center justify-center overflow-hidden">
+          <div class="scanner-laser"></div>
+          <p class="text-xs text-gray-400 font-mono px-4 text-center">Apunte al código QR</p>
+        </div>
+        <button onclick="simularLecturaCamaraExitosa()" class="mt-8 bg-purple-700 text-white font-bold px-6 py-2.5 rounded-xl text-xs shadow">
+          Simular Lectura QR
+        </button>
+      </div>
+    </div>
+
+    <!-- MODAL ELEGIR CULTIVO -->
+    <div id="modal-cultivo" class="hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 p-3">
+      <div class="w-full max-w-sm bg-white rounded-3xl p-4 max-h-[85vh] flex flex-col text-xs">
+        <div class="flex justify-between items-center pb-2 border-b">
+          <h3 class="font-bold text-sm text-gray-800">Elegir cultivo</h3>
+          <button onclick="closeModalCultivo()"><i class="fa-solid fa-xmark text-lg text-gray-400"></i></button>
+        </div>
+        <div class="my-2.5 bg-gray-100 rounded-xl px-3 py-2 flex items-center">
+          <i class="fa-solid fa-magnifying-glass text-gray-400 mr-2"></i>
+          <input type="text" placeholder="Buscar cultivo..." class="bg-transparent outline-none w-full">
+        </div>
+        <div id="lista-cultivos-modal" class="flex-1 overflow-y-auto space-y-1"></div>
+      </div>
+    </div>
+
+    <!-- MODAL SELECTOR CONTENEDOR REGISTRO -->
+    <div id="modal-selector-contenedor" class="hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 p-3">
+      <div class="w-full max-w-sm bg-white rounded-3xl p-4 text-xs">
+        <div class="flex justify-between items-center pb-2 border-b">
+          <h3 class="font-bold text-sm text-gray-800">Seleccionar Contenedor</h3>
+          <button onclick="closeModalSelectorContenedor()"><i class="fa-solid fa-xmark text-lg text-gray-400"></i></button>
+        </div>
+        <div class="space-y-2 mt-3 font-semibold">
+          <button onclick="seleccionarContenedorRegistro('J1-JABA UVA 8 G')" class="w-full p-3 text-left border rounded-xl hover:bg-amber-50 flex justify-between items-center">
+            <span>J1-JABA UVA 8 G</span><i class="fa-solid fa-check text-amber-500"></i>
+          </button>
+          <button onclick="seleccionarContenedorRegistro('J2-JABA UVA 8 G')" class="w-full p-3 text-left border rounded-xl hover:bg-amber-50 flex justify-between items-center">
+            <span>J2-JABA UVA 8 G</span><i class="fa-solid fa-check text-transparent"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+<section id="view-acopio-detalle-qr" class="app-screen hidden flex-1 flex flex-col overflow-hidden"><div class="module-header"><button onclick="navTo('acopio-resumen')" aria-label="Volver"><i class="fa-solid fa-arrow-left"></i></button><h1>Detalle de recepción</h1></div><div id="detalle-qr-contenido" class="listado-scroll"></div><button class="boton-principal" onclick="navTo('acopio-resumen')">Continuar</button></section>
+<div id="modal-embalaje" class="hidden overlay-local"><div class="dialogo-tarjeta"><header><h2>Editar tipo de embalaje</h2></header><div class="p-4"><label for="editar-embalaje">Tipo de embalaje</label><input id="editar-embalaje" maxlength="100" class="w-full border p-2 rounded" placeholder="JBU - Jaba Uva"></div><footer><button onclick="document.getElementById('modal-embalaje').classList.add('hidden')">Cancelar</button><button onclick="guardarEmbalaje()">Guardar</button></footer></div></div>
+<section id="view-enfriado-home" class="app-screen hidden modulo-uva enfriado"><header class="uva-header"><button onclick="navTo('menu')" aria-label="Volver"><i class="fa-solid fa-arrow-left"></i></button><button onclick="openSidebar('drawer-enfriado')" aria-label="Menú"><i class="fa-solid fa-bars"></i></button><h1>Home</h1></header><div id="uva-enfriado-home" class="uva-body"></div></section>
+<section id="view-enfriado-maestra" class="app-screen hidden modulo-uva enfriado"><header class="uva-header"><button onclick="abrirUva('enfriado','home')" aria-label="Volver"><i class="fa-solid fa-arrow-left"></i></button><button onclick="openSidebar('drawer-enfriado')" aria-label="Menú"><i class="fa-solid fa-bars"></i></button><h1>Data maestra</h1></header><div id="uva-enfriado-maestra" class="uva-body"></div></section>
+<section id="view-enfriado-registro" class="app-screen hidden modulo-uva enfriado"><header class="uva-header"><button onclick="abrirUva('enfriado','home')" aria-label="Volver"><i class="fa-solid fa-arrow-left"></i></button><button onclick="openSidebar('drawer-enfriado')" aria-label="Menú"><i class="fa-solid fa-bars"></i></button><h1>Registro de enfriado</h1></header><div id="uva-enfriado-registro" class="uva-body"></div></section>
+<section id="view-enfriado-gestion" class="app-screen hidden modulo-uva enfriado"><header class="uva-header"><button onclick="abrirUva('enfriado','home')" aria-label="Volver"><i class="fa-solid fa-arrow-left"></i></button><button onclick="openSidebar('drawer-enfriado')" aria-label="Menú"><i class="fa-solid fa-bars"></i></button><h1>Gestión de enfriado</h1></header><div id="uva-enfriado-gestion" class="uva-body"></div></section>
+<section id="view-enfriado-resumen" class="app-screen hidden modulo-uva enfriado"><header class="uva-header"><button onclick="abrirUva('enfriado','home')" aria-label="Volver"><i class="fa-solid fa-arrow-left"></i></button><button onclick="openSidebar('drawer-enfriado')" aria-label="Menú"><i class="fa-solid fa-bars"></i></button><h1>Resumen de enfriado</h1></header><div id="uva-enfriado-resumen" class="uva-body"></div></section>
+<section id="view-enfriado-qr" class="app-screen hidden modulo-uva enfriado"><header class="uva-header"><button onclick="abrirUva('enfriado','home')" aria-label="Volver"><i class="fa-solid fa-arrow-left"></i></button><button onclick="openSidebar('drawer-enfriado')" aria-label="Menú"><i class="fa-solid fa-bars"></i></button><h1>QR de entrega</h1></header><div id="uva-enfriado-qr" class="uva-body"></div></section>
+<div id="modal-maestra-comun" class="hidden overlay-local"><div class="maestra-dialogo"><button class="maestra-cerrar" onclick="document.getElementById('modal-maestra-comun').classList.add('hidden')" aria-label="Cerrar">✕</button><div id="maestra-comun-body"></div></div></div><div id="drawer-enfriado" class="hidden overlay-local uva-drawer" onclick="closeSidebar('drawer-enfriado')"><nav onclick="event.stopPropagation()"><h2>Enfriado Uva</h2><button onclick="abrirUva('enfriado','home')">Home</button><button onclick="abrirMaestraComun()">Data maestra</button><button onclick="abrirUva('enfriado','registro')">Registro de enfriado</button><button onclick="abrirUva('enfriado','gestion')">Gestión de enfriado</button><button onclick="abrirUva('enfriado','resumen')">Resumen de enfriado</button><button onclick="enviarInformacion28('enfriado')"><i class="fa-solid fa-paper-plane"></i> Enviar información</button><button onclick="navTo('menu'); closeSidebar('drawer-enfriado')"><i class="fa-solid fa-circle-arrow-left"></i> Menú principal</button></nav></div>
+<section id="view-despacho-home" class="app-screen hidden modulo-uva despacho"><header class="uva-header"><button onclick="navTo('menu')" aria-label="Volver"><i class="fa-solid fa-arrow-left"></i></button><button onclick="openSidebar('drawer-despacho')" aria-label="Menú"><i class="fa-solid fa-bars"></i></button><h1>Home</h1></header><div id="uva-despacho-home" class="uva-body"></div></section>
+<section id="view-despacho-maestra" class="app-screen hidden modulo-uva despacho"><header class="uva-header"><button onclick="abrirUva('despacho','home')" aria-label="Volver"><i class="fa-solid fa-arrow-left"></i></button><button onclick="openSidebar('drawer-despacho')" aria-label="Menú"><i class="fa-solid fa-bars"></i></button><h1>Data maestra</h1></header><div id="uva-despacho-maestra" class="uva-body"></div></section>
+<section id="view-despacho-registro" class="app-screen hidden modulo-uva despacho"><header class="uva-header"><button onclick="abrirUva('despacho','home')" aria-label="Volver"><i class="fa-solid fa-arrow-left"></i></button><button onclick="openSidebar('drawer-despacho')" aria-label="Menú"><i class="fa-solid fa-bars"></i></button><h1>Registro de despacho</h1></header><div id="uva-despacho-registro" class="uva-body"></div></section>
+<section id="view-despacho-gestion" class="app-screen hidden modulo-uva despacho"><header class="uva-header"><button onclick="abrirUva('despacho','home')" aria-label="Volver"><i class="fa-solid fa-arrow-left"></i></button><button onclick="openSidebar('drawer-despacho')" aria-label="Menú"><i class="fa-solid fa-bars"></i></button><h1>Gestión de despacho</h1></header><div id="uva-despacho-gestion" class="uva-body"></div></section>
+<section id="view-despacho-resumen" class="app-screen hidden modulo-uva despacho"><header class="uva-header"><button onclick="abrirUva('despacho','home')" aria-label="Volver"><i class="fa-solid fa-arrow-left"></i></button><button onclick="openSidebar('drawer-despacho')" aria-label="Menú"><i class="fa-solid fa-bars"></i></button><h1>Resumen de despacho</h1></header><div id="uva-despacho-resumen" class="uva-body"></div></section>
+<section id="view-despacho-qr" class="app-screen hidden modulo-uva despacho"><header class="uva-header"><button onclick="abrirUva('despacho','home')" aria-label="Volver"><i class="fa-solid fa-arrow-left"></i></button><button onclick="openSidebar('drawer-despacho')" aria-label="Menú"><i class="fa-solid fa-bars"></i></button><h1>QR de entrega</h1></header><div id="uva-despacho-qr" class="uva-body"></div></section>
+<div id="drawer-despacho" class="hidden overlay-local uva-drawer" onclick="closeSidebar('drawer-despacho')"><nav onclick="event.stopPropagation()"><h2>Despacho Uva</h2><button onclick="abrirUva('despacho','home')">Home</button><button onclick="abrirMaestraComun()">Data maestra</button><button onclick="abrirUva('despacho','registro')">Registro de despacho</button><button onclick="abrirUva('despacho','gestion')">Gestión de despacho</button><button onclick="abrirUva('despacho','resumen')">Resumen de despacho</button><button onclick="enviarInformacion28('despacho')"><i class="fa-solid fa-paper-plane"></i> Enviar información</button><button onclick="navTo('menu'); closeSidebar('drawer-despacho')"><i class="fa-solid fa-circle-arrow-left"></i> Menú principal</button></nav></div>
+<div id="modal-uva-form" class="hidden overlay-local"><div class="dialogo-tarjeta"><header><h2>Guía de remisión y precinto</h2></header><div class="p-4"><label>Guía de remisión<input id="uva-guia" maxlength="80" class="w-full border rounded p-2"></label><label>Precinto(s)<input id="uva-precinto" maxlength="150" class="w-full border rounded p-2"></label></div><footer><button onclick="cerrarFormUva()">Cancelar</button><button onclick="guardarGuiaUva()">Guardar</button></footer></div></div>
+<div id="modal-uva-prueba" class="hidden overlay-local"><div class="dialogo-tarjeta"><header><h2>Lectura de pallet</h2></header><div class="p-4"><p id="uva-prueba-nota"></p><label>Pallet disponible<select id="uva-lista-prueba" class="w-full border rounded p-2"></select></label></div><footer><button onclick="document.getElementById('modal-uva-prueba').classList.add('hidden')">Cancelar</button><button onclick="usarCamaraRealUva()">Abrir cámara</button><button id="uva-simular" onclick="simularPalletUva()">Simular lectura</button></footer></div></div><div id="dialogo-app" class="hidden" role="dialog" aria-modal="true" aria-labelledby="dialogo-titulo" aria-describedby="dialogo-texto"><div class="dialogo-tarjeta"><header><i class="fa-solid fa-circle-info"></i><h2 id="dialogo-titulo">Confirmar operación</h2></header><p id="dialogo-texto"></p><footer><button id="dialogo-no" onclick="resolverDialogo(false)">No, cancelar</button><button id="dialogo-si" onclick="resolverDialogo(true)">Sí, continuar</button></footer></div></div>
+<section id="view-gasificado-home" class="app-screen hidden modulo-uva gasificado"><header class="uva-header"><button onclick="navTo('menu')" aria-label="Volver"><i class="fa-solid fa-arrow-left"></i></button><button onclick="openSidebar('drawer-gasificado')" aria-label="Menú"><i class="fa-solid fa-bars"></i></button><h1>Home</h1></header><div id="uva-gasificado-home" class="uva-body"></div></section>
+<section id="view-gasificado-maestra" class="app-screen hidden modulo-uva gasificado"><header class="uva-header"><button onclick="abrirUva('gasificado','home')" aria-label="Volver"><i class="fa-solid fa-arrow-left"></i></button><button onclick="openSidebar('drawer-gasificado')" aria-label="Menú"><i class="fa-solid fa-bars"></i></button><h1>Data maestra</h1></header><div id="uva-gasificado-maestra" class="uva-body"></div></section>
+<section id="view-gasificado-registro" class="app-screen hidden modulo-uva gasificado"><header class="uva-header"><button onclick="abrirUva('gasificado','home')" aria-label="Volver"><i class="fa-solid fa-arrow-left"></i></button><button onclick="openSidebar('drawer-gasificado')" aria-label="Menú"><i class="fa-solid fa-bars"></i></button><h1>Registro de gasificado</h1></header><div id="uva-gasificado-registro" class="uva-body"></div></section>
+<section id="view-gasificado-gestion" class="app-screen hidden modulo-uva gasificado"><header class="uva-header"><button onclick="abrirUva('gasificado','home')" aria-label="Volver"><i class="fa-solid fa-arrow-left"></i></button><button onclick="openSidebar('drawer-gasificado')" aria-label="Menú"><i class="fa-solid fa-bars"></i></button><h1>Gestión de gasificado</h1></header><div id="uva-gasificado-gestion" class="uva-body"></div></section>
+<section id="view-gasificado-resumen" class="app-screen hidden modulo-uva gasificado"><header class="uva-header"><button onclick="abrirUva('gasificado','home')" aria-label="Volver"><i class="fa-solid fa-arrow-left"></i></button><button onclick="openSidebar('drawer-gasificado')" aria-label="Menú"><i class="fa-solid fa-bars"></i></button><h1>Resumen de gasificado</h1></header><div id="uva-gasificado-resumen" class="uva-body"></div></section>
+<section id="view-gasificado-qr" class="app-screen hidden modulo-uva gasificado"><header class="uva-header"><button onclick="abrirUva('gasificado','home')" aria-label="Volver"><i class="fa-solid fa-arrow-left"></i></button><button onclick="openSidebar('drawer-gasificado')" aria-label="Menú"><i class="fa-solid fa-bars"></i></button><h1>QR de entrega</h1></header><div id="uva-gasificado-qr" class="uva-body"></div></section>
+<div id="drawer-gasificado" class="hidden overlay-local uva-drawer" onclick="closeSidebar('drawer-gasificado')"><nav onclick="event.stopPropagation()"><h2>Gasificado Uva</h2><button onclick="abrirUva('gasificado','home')">Home</button><button onclick="abrirMaestraComun()">Data maestra</button><button onclick="abrirUva('gasificado','registro')">Registro de gasificado</button><button onclick="abrirUva('gasificado','gestion')">Gestión de gasificado</button><button onclick="abrirUva('gasificado','resumen')">Resumen de gasificado</button><button onclick="enviarInformacion28('gasificado')"><i class="fa-solid fa-paper-plane"></i> Enviar información</button><button onclick="navTo('menu'); closeSidebar('drawer-gasificado')"><i class="fa-solid fa-circle-arrow-left"></i> Menú principal</button></nav></div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/transferencias.js"></script>
+  <script src="js/ajustes.js"></script>
+  <script src="js/resumenes.js"></script>
+  <script src="js/recepcion.js"></script>
+  <script src="js/logistica.js"></script>
+  <script src="js/recepcion-planta.js"></script>
+  <script src="js/mejoras-pruebas.js"></script>
+  <script src="js/flujo-entregas.js"></script>
+  <script src="js/resumen-t2.js"></script>
+  <script src="js/ajustes-finales.js"></script>
+  <script src="js/transporte-interno.js"></script>
+  <script src="js/calidad.js"></script>
+  <script src="js/prepacking59.js"></script>
+  <script src="js/prepacking60.js"></script>
+  <script src="js/salidas61.js"></script>
+  <script src="js/zonas62.js"></script>
+  <script src="js/zonas63.js"></script>
+  <script src="js/zonas64.js"></script>
+  <script src="js/ajustes65.js"></script>
+  <script src="js/ajustes66.js"></script>
+  <script src="js/flujos67.js"></script>
+<script src="js/mejoras68.js"></script>
+<script src="js/mejoras69.js"></script>
+  <script src="js/vendor/html2canvas.min.js"></script>
+  <script src="js/capturas.js"></script>
+  <script src="js/grabacion.js"></script>
+<script src="js/reportes70.js"></script>
+<script src="js/reportes-pc71.js"></script>
+<script src="js/reportes-ui70.js"></script>
+<script src="js/titulos75.js"></script>
+<script src="js/reportes78.js"></script>
+<script src="js/ajustes78.js"></script>
+<script src="js/mejoras79.js"></script>
+<script src="js/recepcion83.js"></script>
+</body>
+</html>
